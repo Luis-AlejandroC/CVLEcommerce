@@ -1,25 +1,41 @@
 package com.carvajal.ecmc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Productos")
 public class Product {
+	@Id
+	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	private Integer productId;
 	private String productName;
 	private String productImage;
 	private double productPrice;
 	private int productQuantity;//Stock
 
+	//JPA attribute
+	@ManyToOne
+	private User user;
+	
 	public Product() {
 		
 	}
 	
 	// Product Constructor
-	public Product(Integer productId, String productName, String productImage, double productPrice,
-			int productQuantity) {
+	public Product(Integer productId, String productName, String productImage, double productPrice, int productQuantity,
+			User user) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.productImage = productImage;
 		this.productPrice = productPrice;
 		this.productQuantity = productQuantity;
+		this.user = user;
 	}
 	
 	// Product getter and setter 
@@ -55,15 +71,23 @@ public class Product {
 		this.productPrice = productPrice;
 	}
 
-	public int getproductQuantity() {
+	public int getProductQuantity() {
 		return productQuantity;
 	}
 
-	public void setproductQuantity(int productQuantity) {
+	public void setProductQuantity(int productQuantity) {
 		this.productQuantity = productQuantity;
 	}
 
-	//print values
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	//print product values
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productImage=" + productImage

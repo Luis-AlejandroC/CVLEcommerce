@@ -1,11 +1,28 @@
 package com.carvajal.ecmc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name= "Detalle pedidos")
 public class OrderDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderDetailId;
 	private String orderDetailNumber;
 	private double orderDetailQuantity;
 	private double prderDetailPrice;
 	private double orderDetailTotal;
+	
+	@OneToOne
+	private Order order;
+	
+	@OneToOne
+	private Product product;
 	
 	public OrderDetails() {
 		
@@ -51,6 +68,19 @@ public class OrderDetails {
 	}
 	public void setOrderDetailTotal(double orderDetailTotal) {
 		this.orderDetailTotal = orderDetailTotal;
+	}	
+	
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 	//print Orderdetail values

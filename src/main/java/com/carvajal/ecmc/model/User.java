@@ -1,9 +1,21 @@
 package com.carvajal.ecmc.model;
 
-public class User {
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table (name= "Usuarios")
+public class User {
+		@Id
+		@GeneratedValue (strategy= GenerationType.IDENTITY)
 		private Integer userId;
-		private String fulName;
+		private String fullName;
 		private String nickName;
 		private String email;
 		private String userHomeAdress;
@@ -12,7 +24,12 @@ public class User {
 		private String kindOfUser;
 		private String adress;
 		
+		//JPA attribute
+		@OneToMany(mappedBy = "user")
+		private List<Product> products;
 		
+		@OneToMany(mappedBy = "user")
+		private List<Order> orders;
 		public User() {
 			
 		}
@@ -28,13 +45,13 @@ public class User {
 		}
 
 
-		public String getFulName() {
-			return fulName;
+		public String getFullName() {
+			return fullName;
 		}
 
 
-		public void setFulName(String fulName) {
-			this.fulName = fulName;
+		public void setFullName(String fullName) {
+			this.fullName = fullName;
 		}
 
 
@@ -107,9 +124,19 @@ public class User {
 			this.adress = adress;
 		}
 
+		public List<Product> getProducts() {
+			return products;
+		}
+
+		public void setProducts(List<Product> products) {
+			this.products = products;
+		}
+
+		//print user values
 		@Override
+		
 		public String toString() {
-			return "User [userId=" + userId + ", fulName=" + fulName + ", nickName=" + nickName + ", email=" + email
+			return "User [userId=" + userId + ", fullName=" + fullName + ", nickName=" + nickName + ", email=" + email
 					+ ", userHomeAdress=" + userHomeAdress + ", cellPhone=" + cellPhone + ", userPassword="
 					+ userPassword + ", kindOfUser=" + kindOfUser + ", adress=" + adress + "]";
 		}

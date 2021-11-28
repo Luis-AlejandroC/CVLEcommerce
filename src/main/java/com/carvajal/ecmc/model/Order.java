@@ -2,12 +2,32 @@ package com.carvajal.ecmc.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Pedidos")
 public class Order {
+	
+	@Id
+	@GeneratedValue (strategy =GenerationType.IDENTITY)
 	private Integer orderId;
 	private String orderNumber;
 	private Date dateCreated;
 	private Date dateReceived;
+	
 	private double orderTotal;
+	
+	@ManyToOne
+	private User user;
+	
+	@OneToOne(mappedBy = "order")
+	private OrderDetails detail;
 	
 	public Order() {
 		
@@ -54,8 +74,22 @@ public class Order {
 	}
 	public void setOrderTotal(double orderTotal) {
 		this.orderTotal = orderTotal;
+	}		
+	public User getUser() {
+		return user;
 	}
-	
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public OrderDetails getDetail() {
+		return detail;
+	}
+
+	public void setDetail(OrderDetails detail) {
+		this.detail = detail;
+	}
+
 	//print Order values
 	@Override
 	public String toString() {
